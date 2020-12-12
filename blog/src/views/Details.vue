@@ -1,20 +1,34 @@
 <template>
   <article class="post postfull card">
-    {{id}}
+    {{details.data}}
   </article>
 
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+
+import { defineComponent, onMounted, reactive } from 'vue'
 import { useRoute } from 'vue-router'
-// import { getDetails } from '../api/getDetails'
+import getDetails from '../api/getDetails'
 export default defineComponent({
   setup () {
     const route = useRoute()
-    const id = route.params.id
+    const id = Number(route.params.id)
+    const details = reactive({
+      data: []
+    })
+    onMounted(() => {
+      getDetails(id)
+        .then((response) => {
+          console.log(response)
+          details.data = response.data
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    })
     return {
-      route, id
+      route, id, details
     }
   }
 })

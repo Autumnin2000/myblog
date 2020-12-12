@@ -10,9 +10,18 @@ const pool = mysql.createPool({
   database:'blog'
 })
 
-Route.get('/details',(req,res)=>{
-  console.log(req.query());
-  res.send('11')
+Route.get('/details/:id',(req,res)=>{
+  console.log(req.params.id);
+  let id = req.params.id;
+  let sql = `select * from details where details.id =${id} `;
+  pool.getConnection((err,connection) => {
+    if(err)throw err;
+    connection.query(sql,(error,results,fileds)=>{
+      if(error)throw error;
+      res.send(results);
+      connection.release();
+    })
+  })
 })
 
 

@@ -19,7 +19,6 @@ Route.get("/getList",(req,res) =>{
       if(error)throw error;
       res.send(results);
       connection.release();
-      console.log(results);
     })
   })
   
