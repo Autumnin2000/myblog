@@ -1,6 +1,6 @@
 <template>
-
-      <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
+  <div>
+     <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
       <el-menu-item index="1">博客首页</el-menu-item>
       <el-submenu index="2">
         <template #title>生活记录</template>
@@ -12,6 +12,7 @@
       <el-menu-item index="4"><a href="https://www.ele.me" target="_blank">订单管理</a></el-menu-item>
     </el-menu>
     <div class="line"></div>
+  </div>
 </template>
 
 <script>
