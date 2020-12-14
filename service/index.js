@@ -7,6 +7,7 @@ const bodyParser =require('body-parser');
 const getListRouter = require('./router/getList');
 const detailRouter =require('./router/details');
 const userRouter= require('./router/user');
+const articleRouter = require('./router/article');
 // 创建主应用
 const app = express();
 const port = 3000;
@@ -25,4 +26,5 @@ app.get('/', (req, res) => res.send('Hello World!'))
 app.use(getListRouter);
 app.use(userRouter);
 app.use(detailRouter);
+app.use(articleRouter);
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))

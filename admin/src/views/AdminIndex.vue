@@ -1,11 +1,23 @@
 <template>
-  <h1></h1>
+  <add-article></add-article>
 </template>
 
 <script>
-export default {
-
-}
+// import Slider from '../components/Slider.vue'
+import AddArticle from '../views/AddArticle.vue'
+import { defineComponent, ref } from 'vue'
+export default defineComponent( {
+  setup(){
+    let text = ref("")
+    
+    return {
+      text
+    }
+  },
+  components: {
+    AddArticle
+  }
+})
 </script>
 
 <style>

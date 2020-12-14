@@ -1,7 +1,7 @@
-const express = require("express");
+const express = require("express")
 const mysql = require("mysql");
+const moment = require("moment");
 const Router = express.Router();
-
 const pool = mysql.createPool({
   connectionLimit:10,
   host:'localhost',
@@ -10,10 +10,10 @@ const pool = mysql.createPool({
   database:'blog'
 })
 
-Router.post('/login',(req,res)=>{
-  let username = req.body.username;
-  let password = req.body.password;
-  let sql = `SELECT * from user WHERE username = "${username}" AND password = "${password}"`;
+Router.post('/addArticle',(req,res)=>{
+  let {content,date,title,desc} = req.body;
+  date = moment(date).format('YYYY-MM-DD HH:mm:ss');
+  let sql = `INSERT INTO details (\`content\`, \`date\`, \`title\`, \`desc\`) VALUES ("${content}", "${date}", "${title}", "${desc}")`;
   pool.getConnection((err,connection) => {
     if(err)throw err;
     connection.query(sql,(error,results,fileds)=>{
@@ -21,12 +21,12 @@ Router.post('/login',(req,res)=>{
       if(results.length == 0){
         res.send({
           code:-1,
-          message:'用户名或密码错误'
+          message:'插入失败'
         })
       }else{
         res.send({
           code:0,
-          message:'登录成功'
+          message:'插入成功'
         })
       }
       

@@ -1,6 +1,6 @@
 const express = require("express");
 const mysql = require("mysql");
-const Route = express.Router();
+const Router = express.Router();
 
 const pool = mysql.createPool({
   connectionLimit:10,
@@ -10,7 +10,7 @@ const pool = mysql.createPool({
   database:'blog'
 })
 
-Route.get("/getList",(req,res) =>{
+Router.get("/getList",(req,res) =>{
   let sql = "select * from details";
   console.log(req.query);
   pool.getConnection((err,connection) => {
@@ -23,4 +23,4 @@ Route.get("/getList",(req,res) =>{
   })
   
 })
-module.exports = Route;
+module.exports = Router;

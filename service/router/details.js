@@ -1,5 +1,5 @@
 const express = require("express");
-const Route = express.Router();
+const Router = express.Router();
 const mysql = require("mysql");
 
 const pool = mysql.createPool({
@@ -10,7 +10,7 @@ const pool = mysql.createPool({
   database:'blog'
 })
 
-Route.get('/details/:id',(req,res)=>{
+Router.get('/details/:id',(req,res)=>{
   console.log(req.params.id);
   let id = req.params.id;
   let sql = `select * from details where details.id =${id} `;
@@ -26,4 +26,4 @@ Route.get('/details/:id',(req,res)=>{
 
 
 
-module.exports = Route
+module.exports = Router
