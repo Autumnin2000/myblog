@@ -3,8 +3,10 @@
  * 入口模块
  */
 const express = require('express');
+const bodyParser =require('body-parser');
 const getListRouter = require('./router/getList');
 const detailRouter =require('./router/details');
+const userRouter= require('./router/user');
 // 创建主应用
 const app = express();
 const port = 3000;
@@ -16,9 +18,11 @@ app.all('*', (req, res, next) => {
   res.header("Content-Type", "application/json;charset=utf-8");
   next();
 });
-
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 //监听服务器
 app.get('/', (req, res) => res.send('Hello World!'))
 app.use(getListRouter);
+app.use(userRouter);
 app.use(detailRouter);
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
