@@ -1,9 +1,13 @@
 <template>
     <el-aside style="width:240px;margin-right:25px">
         <el-card :body-style="{ padding: '0px',height:'380px',width:'240px' }">
+          <div class="nav">
+            <el-link type="primary">个人介绍</el-link>
+            <el-link type="primary">功能</el-link>
+          </div>
           <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" class="image">
           <div style="padding: 14px;">
-            <span>好吃的汉堡</span>
+            <h6 class="name">solitce23</h6>
             <div class="bottom clearfix">
               <time class="time">{{ currentDate }}</time>
               <el-button type="text" class="button">操作按钮</el-button>
@@ -20,10 +24,6 @@ export default {
 </script>
 
 <style>
-  .time {
-    font-size: 13px;
-    color: #999;
-  }
   .bottom {
     margin-top: 13px;
     line-height: 12px;
@@ -32,11 +32,21 @@ export default {
   .button {
     padding: 0;
   }
-
+  .nav{
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 10px;
+  }
+  .name{
+   text-align: center;
+   font-size: 18px;
+   font-family: inherit;
+   color:skyblue;
+  }
   .image {
     width: 50%;
     display: block;
-    margin:20px auto;
+    margin:0 auto;
     border-radius: 100px;
   }
 

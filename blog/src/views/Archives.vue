@@ -44,4 +44,7 @@ a{
   text-decoration: none;
   color: #409EFF;
 }
+.el-timeline-item{
+  text-align: center;
+}
 </style>

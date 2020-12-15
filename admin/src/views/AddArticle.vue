@@ -1,6 +1,7 @@
 <template>
   <div class="main">
       <el-input
+      class="input"
       type="text"
       placeholder="文章标题"
       v-model="title"
@@ -9,6 +10,7 @@
     >
     </el-input>
     <el-input
+      class="input"
       type="text"
       placeholder="文章概要"
       v-model="desc"
@@ -74,7 +76,7 @@ export default {
   align-items: center;
   justify-content: center;
 }
-.el-input{
-  width: 80%;
+.input{
+  width: 60%;
 }
 </style>

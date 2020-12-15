@@ -1,7 +1,9 @@
 import axios from 'axios'
 const url = 'http://localhost:3000/details/'
 interface Result {
-  data: [];
+  data: [{
+    content: '';
+  }];
 }
 const getDetails = (id: number): Promise<Result> => {
   return new Promise((resolve, reject) => {
