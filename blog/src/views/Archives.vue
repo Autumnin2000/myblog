@@ -1,14 +1,16 @@
 <template>
-  <div class="block">
-  <el-timeline>
-    <el-timeline-item  placement="top" v-for="(item) in items.item" :key="item.id" timestamp="2019-08-7">
-      <el-card>
-        <el-link type="primary"><h4><router-link :to="'/details/'+item.id">{{item.title}}</router-link></h4></el-link>
-        <p>{{item.desc}}</p>
-      </el-card>
-    </el-timeline-item>
-  </el-timeline>
-</div>
+<el-main style="margin-left:25px;">
+    <div class="block">
+    <el-timeline>
+      <el-timeline-item  placement="top" v-for="(item) in items.item" :key="item.id" timestamp="2019-08-7">
+        <el-card>
+          <el-link type="primary"><h4><router-link :to="'/details/'+item.id">{{item.title}}</router-link></h4></el-link>
+          <p>{{item.desc}}</p>
+        </el-card>
+      </el-timeline-item>
+    </el-timeline>
+  </div>
+</el-main>
 </template>
 
 <script>

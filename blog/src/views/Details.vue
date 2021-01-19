@@ -1,7 +1,29 @@
 <template>
-  <article>
+  <article class="article-details">
     <el-container>
-      <el-header>{{details.data[0].title}}</el-header>
+      <el-header class="ac-header">
+        <a class="title" href="#">
+          {{details.data[0].title}}
+        </a>
+        <div class="header-meta">
+          <div id="time">
+            <img src="../assets/time.png" alt="">
+            <div>2021-1-19</div>
+          </div>
+          <div id="category">
+            <img src="../assets/category.png" alt="">
+            <div>OI 算法</div>
+          </div>
+          <div id="words">
+            <img src="../assets/words.png" alt="">
+            <div>2123字</div>
+          </div>
+          <div id="read-time">
+            <img src="../assets/readtime.png" alt="">
+            <div>8分钟</div>
+          </div>
+        </div>
+      </el-header>
       <el-main v-html="details.data[0].content"></el-main>
     </el-container>
   </article>
@@ -64,16 +86,39 @@ export default defineComponent({
 })
 </script>
 
-<style>
+<style scoped>
 body{
   font-family: 'Open Sans', -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimSun, sans-serif;
 }
 element.style{
   height: 100px;
 }
-.el-header{
-  margin-bottom: 20px;
-  color:#5e72e4;
+
+.article-details{
+  width: 880px;
+}
+.ac-header{
+  height: 100px;
+  text-align: center !important;
+}
+.header-meta{
+  display:flex;
+  justify-content: center;
+  font-size:14.5px;
+  opacity: .8;
+  line-height: 24px;
+}
+.header-meta img{
+  width:14px;
+  height: 14px;
+}
+.title {
+  font-size: 26px;
+  letter-spacing: .5px;
+}
+.title:hover {
+  color:pink;
+  transition: color 1s ease;
 }
 .el-main{
   line-height: 1.8;
