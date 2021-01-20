@@ -46,6 +46,9 @@ a{
   text-decoration: none;
   color: #409EFF;
 }
+.block{
+  width:880px;
+}
 .el-timeline-item{
   text-align: center;
 }

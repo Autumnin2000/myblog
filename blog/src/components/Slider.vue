@@ -1,6 +1,6 @@
 <template>
-    <el-aside style="width:240px;margin-right:25px background-color:#fff; border-radius:9px;">
-        <el-card :body-style="{ padding: '0px',height:'380px',width:'240px' }">
+    <el-aside style="width:240px;background-color:#fff; border-radius:9px;margin-left:230px;height:402px;">
+        <el-card :body-style="{ padding: '0px',width:'240px' }">
           <div class="nav">
             <el-link type="primary">个人介绍</el-link>
             <el-link type="primary">功能</el-link>
@@ -31,6 +31,21 @@
             </nav>
             </el-row>
           </div>
+          <hr style="width:200px; opacity:0.3;"/>
+          <div class="author-links">
+            <div class="link-item github">
+              <a href="https://github.com/Autumnin2000" >
+                <img src="../assets/GitHub.png" alt="" style="width:14px;height:14px;">
+                GitHub
+              </a>
+            </div>
+            <div class="link-item lc">
+              <a href="https://leetcode-cn.com/u/autumnin2000/">
+               <img src="../assets/LeetCode.png" alt="" style="width:14px;height:14px;">
+                LeetCode
+              </a>
+            </div>
+          </div>
         </el-card>
          <el-backtop></el-backtop>
     </el-aside>
@@ -55,6 +70,7 @@ export default {
     display: flex;
     justify-content: space-around;
     margin-bottom: 10px;
+    margin-top: 20px;
   }
   .name{
    text-align: center;
@@ -62,6 +78,19 @@ export default {
    font-family: inherit;
    color:skyblue;
    margin: 5px;
+  }
+  .author-links .link-item:hover{
+    background: grey;
+    opacity: 0.5;
+  }
+  .author-links{
+    display: flex;
+    justify-content: space-around;
+  }
+  .link-item{
+    border-radius: 5px;
+    margin:3px;
+    padding: 5px;
   }
   .site-state{
     display: flex;

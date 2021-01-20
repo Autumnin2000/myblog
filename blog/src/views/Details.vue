@@ -6,19 +6,22 @@
           {{details.data[0].title}}
         </a>
         <div class="header-meta">
-          <div id="time">
+          <div class="time item">
             <img src="../assets/time.png" alt="">
             <div>2021-1-19</div>
           </div>
-          <div id="category">
+          <div class="header-meta-divide">|</div>
+          <div class="category item">
             <img src="../assets/category.png" alt="">
-            <div>OI 算法</div>
+            <div>算法</div>
           </div>
-          <div id="words">
+          <div class="header-meta-divide">|</div>
+          <div class="words item">
             <img src="../assets/words.png" alt="">
             <div>2123字</div>
           </div>
-          <div id="read-time">
+          <div class="header-meta-divide">|</div>
+          <div class="read-time item">
             <img src="../assets/readtime.png" alt="">
             <div>8分钟</div>
           </div>
@@ -93,24 +96,34 @@ body{
 element.style{
   height: 100px;
 }
+.item{
+  display: flex;
+  justify-content: center;
+  vertical-align: middle;
+}
 
 .article-details{
   width: 880px;
+  background-color: #fff;
+  border-radius: 10px;
 }
 .ac-header{
   height: 100px;
-  text-align: center !important;
+  text-align: center;
+  margin-top: 40px;
 }
 .header-meta{
   display:flex;
-  justify-content: center;
+  justify-content: space-around;
   font-size:14.5px;
   opacity: .8;
   line-height: 24px;
+  margin-top: 10px;
 }
 .header-meta img{
-  width:14px;
-  height: 14px;
+  width:20px;
+  height: 20px;
+  margin-right: 5px;
 }
 .title {
   font-size: 26px;

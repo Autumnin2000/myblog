@@ -47,8 +47,9 @@ header{
   width: 100%;
 }
 .content{
-  margin:200px 336px 100px 336px;
-  width:1000px;
+  display: flex;
+  justify-content: space-around;
+  margin-top: 150px;
 }
 .fade-enter-active, .fade-leave-active {
   opacity: 0;
