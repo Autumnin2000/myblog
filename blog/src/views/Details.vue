@@ -1,6 +1,7 @@
 <template>
-  <article class="article-details">
-    <el-container>
+  <div>
+    <article class="article-details">
+      <el-container>
       <el-header class="ac-header">
         <a class="title" href="#">
           {{details.data[0].title}}
@@ -30,7 +31,8 @@
       <el-main v-html="details.data[0].content"></el-main>
     </el-container>
   </article>
-
+  <Comments />
+  </div>
 </template>
 
 <script lang="ts">
@@ -40,6 +42,7 @@ import 'highlight.js/styles/darcula.css' // 引入高亮样式 这里我用的�
 import { defineComponent, onMounted, reactive } from 'vue'
 import { useRoute } from 'vue-router'
 import getDetails from '../api/getDetails'
+import Comments from '../components/Comments.vue'
 interface Result {
   data: [{
     title: string;
@@ -85,6 +88,9 @@ export default defineComponent({
     return {
       route, id, details
     }
+  },
+  components: {
+    Comments
   }
 })
 </script>
