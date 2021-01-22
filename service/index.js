@@ -8,6 +8,7 @@ const getListRouter = require('./router/getList');
 const detailRouter =require('./router/details');
 const userRouter= require('./router/user');
 const articleRouter = require('./router/article');
+const commentsRouter = require('./router/comments');
 // 创建主应用
 const app = express();
 const port = 3000;
@@ -27,4 +28,5 @@ app.use(getListRouter);
 app.use(userRouter);
 app.use(detailRouter);
 app.use(articleRouter);
+app.use(commentsRouter);
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))

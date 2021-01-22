@@ -31,7 +31,7 @@
       <el-main v-html="details.data[0].content"></el-main>
     </el-container>
   </article>
-  <Comments />
+  <Comments :articleId="id"/>
   </div>
 </template>
 
@@ -61,7 +61,7 @@ export default defineComponent({
     onMounted(() => {
       getDetails(id)
         .then((response) => {
-          console.log(response)
+          // console.log(response)
           details.data = response.data
           details.data[0].content = marked(response.data[0].content)
           details.data[0].content = details.data[0].content.replace(/<pre/g, "<pre class='hljs'")
