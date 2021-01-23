@@ -10,6 +10,8 @@
           <div class="comment-item-text">
             <p>{{item.content}}</p>
           </div>
+           <el-button class="comment-operation">回复</el-button>
+          <el-divider></el-divider>
         </div>
         <comment-list v-if="item.cdr.length!=0" :data="item.cdr"></comment-list>
       </div>
@@ -38,4 +40,8 @@ export default defineComponent({
 </script>
 
 <style>
+.comment-item-header{
+  display: flex;
+  justify-content: space-between;
+}
 </style>
