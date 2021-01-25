@@ -78,6 +78,26 @@ Router.post('/addComment/:id/:parentId?', (req, res) => {
 
       })
     })
+  }else {
+    let sql = `INSERT INTO comments (\`articleId\`, \`name\`, \`content\`, \`date\`,\`Id\`,\`children\`) VALUES ("${req.params.id}", "${name}", "${content}", "${date}","${Id}","-1")`;
+                pool.getConnection((err, connection) => {
+                  if (err) throw err;
+                  connection.query(sql, (error, results, fileds) => {
+                    if (error) throw error;
+                    if (results.length == 0) {
+                      res.send({
+                        code: -1,
+                        message: '评论失败'
+                      })
+                    } else {
+                      res.send({
+                        code: 0,
+                        message: '评论成功'
+                      })
+                    }
+              
+                  })
+                })
   }
 })
 module.exports = Router;

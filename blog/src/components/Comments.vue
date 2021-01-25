@@ -41,10 +41,12 @@
   </div>
 </template>
 <script>
-import { defineComponent, reactive, ref, onMounted } from 'vue'
+import { defineComponent, reactive, ref, onMounted, watch } from 'vue'
+import { ElMessage } from 'element-plus'
 import kaomoji from '../utils/kaomoji'
 import getComments from '../api/getComments'
 import CommentList from './CommentList.vue'
+import addComment from '../api/addComment'
 export default defineComponent({
   components: { CommentList },
   props: {
@@ -53,6 +55,9 @@ export default defineComponent({
   setup (props) {
     const refForm = ref(null)
     const isShowKeyBoard = ref(false)
+    const listKey = ref(0)
+    const isCommented = ref(0)
+    let Id = ref(0)
     const datas = reactive({
       data: []
     })
@@ -68,9 +73,17 @@ export default defineComponent({
         { required: true, message: '请输入昵称', trigger: 'blur' }
       ]
     }
+    const openSuccess = () => {
+      ElMessage.success({
+        message: '评论成功！',
+        type: 'success'
+      })
+    }
+    const openFailed = (message) => {
+      ElMessage.error(message)
+    }
     const help = (obj, map, note, arr) => {
       note[map[obj.Id]] = true
-      console.log(obj.Id, map[obj.Id])
       obj.cdr = []
       if (obj.children !== '-1') {
         const temp = obj.children.split(',')
@@ -105,21 +118,49 @@ export default defineComponent({
     onMounted(() => {
       getComments(props.articleId)
         .then((response) => {
+          Id = response.data.length + 1
           datas.data = dataHandler(response.data)
-          console.log(typeof datas.data)
         })
         .catch((error) => {
           console.log(error)
+          openFailed('获取数据失败,未知错误')
         })
     })
-    const submitForm = async () => {
+    watch(isCommented, () => {
+      getComments(props.articleId)
+        .then((response) => {
+          Id = response.data.length + 1
+          const temp = dataHandler(response.data)
+          const n = temp.length - 1
+          datas.data.push(temp[n])
+        })
+        .catch(() => {
+          openFailed('更新数据失败,未知错误')
+        })
+    })
+    const submitForm = () => {
       // const formContent = unref(refForm)
       // if (!formContent) return
       const { name, content } = form
+      const date = new Date()
       if (name === '' || content === '') {
         return
       }
-      console.log(name, content, kaomoji)
+      addComment(name, content, date, props.articleId, Id)
+        .then((res) => {
+          console.log(res)
+          if (res.data.code === 0) {
+            openSuccess()
+            isCommented.value++
+            refForm.value.resetFields()
+          } else {
+            openFailed(res.data.message)
+          }
+        })
+        .catch((err) => {
+          openFailed(err)
+          refForm.value.resetFields()
+        })
     }
     const showKeyboard = () => {
       isShowKeyBoard.value = !isShowKeyBoard.value
@@ -132,7 +173,8 @@ export default defineComponent({
       kaomoji,
       showKeyboard,
       isShowKeyBoard,
-      datas
+      datas,
+      listKey
     }
   }
 })
