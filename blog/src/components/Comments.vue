@@ -1,16 +1,5 @@
 <template>
   <div class="comments">
-    <el-card shadow="always" class="nothing" style="height:105px" v-if="datas.data.length == 0">
-      暂无评论
-    </el-card>
-    <el-card class="comment-list" v-else>
-      <template #header>
-        <div class="clearfix">
-          <span>评论</span>
-        </div>
-      </template>
-      <CommentList :data="datas.data"/>
-    </el-card>
     <el-card class="box-card">
     <template #header>
       <div class="clearfix">
@@ -41,26 +30,29 @@
   </div>
 </template>
 <script>
-import { defineComponent, reactive, ref, onMounted, watch } from 'vue'
+import { useStore } from 'vuex'
+import { defineComponent, onMounted, reactive, ref, watch } from 'vue'
 import { ElMessage } from 'element-plus'
 import kaomoji from '../utils/kaomoji'
 import getComments from '../api/getComments'
-import CommentList from './CommentList.vue'
 import addComment from '../api/addComment'
 export default defineComponent({
-  components: { CommentList },
+  emits: ['getDataList'],
   props: {
-    articleId: Number
+    articleId: Number,
+    parentId: Number
   },
-  setup (props) {
+  setup (props, context) {
     const refForm = ref(null)
     const isShowKeyBoard = ref(false)
     const listKey = ref(0)
-    const isCommented = ref(0)
-    let Id = ref(0)
+    const store = useStore()
+    const isCommented = ref(store.state.isCommented)
     const datas = reactive({
       data: []
     })
+    let parentId = 0
+    let Id = ref(0)
     const form = reactive({
       content: '',
       name: ''
@@ -72,15 +64,6 @@ export default defineComponent({
       name: [
         { required: true, message: '请输入昵称', trigger: 'blur' }
       ]
-    }
-    const openSuccess = () => {
-      ElMessage.success({
-        message: '评论成功！',
-        type: 'success'
-      })
-    }
-    const openFailed = (message) => {
-      ElMessage.error(message)
     }
     const help = (obj, map, note, arr) => {
       note[map[obj.Id]] = true
@@ -115,52 +98,98 @@ export default defineComponent({
       }
       return ans
     }
+    const openSuccess = () => {
+      ElMessage.success({
+        message: '评论成功！',
+        type: 'success'
+      })
+    }
+    const openFailed = (message) => {
+      ElMessage.error(message)
+    }
+    watch(isCommented, () => {
+      getComments(props.articleId)
+        .then((response) => {
+          Id = response.data.length + 1
+          const temp = dataHandler(response.data)
+          datas.data.splice(0)
+          console.log(datas.data)
+          temp.forEach(e => {
+            datas.data.push(e)
+          })
+          console.log(datas.data)
+          // const n = temp.length - 1
+          // datas.data.push(temp[n])
+          store.commit('changeCommentList', datas.data)
+          context.emit('getDataList', datas.data)
+        })
+        .catch(() => {
+          openFailed('更新数据失败,未知错误')
+        })
+    })
+    // watch(isCommentedToParent, () => {
+    // })
     onMounted(() => {
+      // console.log(store.state.commentList)
+      // dataItem.data = store.state.commentList
+      console.log(props)
+      if (props.parentId) {
+        parentId = props.parentId
+      }
       getComments(props.articleId)
         .then((response) => {
           Id = response.data.length + 1
           datas.data = dataHandler(response.data)
+          store.commit('changeCommentList', datas.data)
+          context.emit('getDataList', datas.data)
         })
         .catch((error) => {
           console.log(error)
           openFailed('获取数据失败,未知错误')
         })
     })
-    watch(isCommented, () => {
-      getComments(props.articleId)
-        .then((response) => {
-          Id = response.data.length + 1
-          const temp = dataHandler(response.data)
-          const n = temp.length - 1
-          datas.data.push(temp[n])
-        })
-        .catch(() => {
-          openFailed('更新数据失败,未知错误')
-        })
-    })
     const submitForm = () => {
-      // const formContent = unref(refForm)
-      // if (!formContent) return
       const { name, content } = form
       const date = new Date()
+      console.log(name, content)
       if (name === '' || content === '') {
         return
       }
-      addComment(name, content, date, props.articleId, Id)
-        .then((res) => {
-          console.log(res)
-          if (res.data.code === 0) {
-            openSuccess()
-            isCommented.value++
+      if (!parentId) {
+        addComment(name, content, date, props.articleId, Id)
+          .then((res) => {
+            console.log(res)
+            if (res.data.code === 0) {
+              openSuccess()
+              isCommented.value++
+              store.commit('setCommentedState')
+              refForm.value.resetFields()
+            } else {
+              openFailed(res.data.message)
+            }
+          })
+          .catch((err) => {
+            openFailed(err)
             refForm.value.resetFields()
-          } else {
-            openFailed(res.data.message)
-          }
-        })
-        .catch((err) => {
-          openFailed(err)
-          refForm.value.resetFields()
-        })
+          })
+      } else {
+        addComment(name, content, date, props.articleId, Id, parentId)
+          .then((res) => {
+            console.log(res)
+            if (res.data.code === 0) {
+              openSuccess()
+              isCommented.value++
+              store.commit('setCommentedState')
+              refForm.value.resetFields()
+            } else {
+              openFailed(res.data.message)
+            }
+          })
+          .catch((err) => {
+            openFailed(err)
+            refForm.value.resetFields()
+          })
+      }
     }
     const showKeyboard = () => {
       isShowKeyBoard.value = !isShowKeyBoard.value

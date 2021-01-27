@@ -19,6 +19,7 @@ Router.post('/addComment/:id/:parentId?', (req, res) => {
   } = req.body;
   date = moment(date).format('YYYY-MM-DD HH:mm:ss');
   if (req.params.parentId) {
+    console.log(req.params.parentId)
     let sql = `select children from comments where comments.Id =${req.params.parentId}`;
     let children = "";
     pool.getConnection((err, connection) => {

@@ -31,7 +31,18 @@
       <el-main v-html="details.data[0].content"></el-main>
     </el-container>
   </article>
-  <Comments :articleId="id"/>
+  <el-card shadow="always" class="nothing" style="height:105px" v-if="childrenData.data.length == 0">
+      暂无评论
+  </el-card>
+  <el-card class="comment-list" v-else>
+      <template #header>
+        <div class="clearfix">
+          <span>评论</span>
+        </div>
+      </template>
+      <CommentList :articleId="id"/>
+   </el-card>
+    <Comments :articleId="id" @getDataList="getDataList"/>
   </div>
 </template>
 
@@ -42,22 +53,35 @@ import 'highlight.js/styles/darcula.css' // 引入高亮样式 这里我用的�
 import { defineComponent, onMounted, reactive } from 'vue'
 import { useRoute } from 'vue-router'
 import getDetails from '../api/getDetails'
+import { useStore } from 'vuex'
 import Comments from '../components/Comments.vue'
+import CommentList from '../components/CommentList.vue'
 interface Result {
   data: [{
     title: string;
     content: string;
   }];
 }
+interface ChildData {
+  data: Array<Record <string, any>>;
+}
 export default defineComponent({
   setup () {
     const route = useRoute()
     const id = Number(route.params.id)
+    const store = useStore()
+    store.commit('setArticleId', id)
+    const childrenData: ChildData = reactive({
+      data: []
+    })
     const details = reactive({
       data: [{
         content: ''
       }]
     })
+    const getDataList = (value: Array<Record<string, any>>) => {
+      childrenData.data = value
+    }
     onMounted(() => {
       getDetails(id)
         .then((response) => {
@@ -86,11 +110,12 @@ export default defineComponent({
       })
     })
     return {
-      route, id, details
+      route, id, details, childrenData, getDataList
     }
   },
   components: {
-    Comments
+    Comments,
+    CommentList
   }
 })
 </script>
