@@ -23,8 +23,8 @@
     </el-form>
   </el-card>
   <el-card class="emotion-group" v-if="isShowKeyBoard">
-    <div v-for="item in kaomoji" :key="item.id" class="emotion-item">
-      {{item.desc}}
+    <div v-for="item in kaomoji" :key="item.id" class="emotion-item" @click="useEmotion(item.desc)">
+      <p>{{item.desc}}</p>
     </div>
   </el-card>
   </div>
@@ -57,6 +57,13 @@ export default defineComponent({
       content: '',
       name: ''
     })
+    const showKeyboard = () => {
+      isShowKeyBoard.value = !isShowKeyBoard.value
+    }
+    const useEmotion = (content) => {
+      form.content += content
+      showKeyboard()
+    }
     const rules = {
       content: [
         { required: true, message: '请输入评论内容', trigger: 'blur' }
@@ -191,9 +198,6 @@ export default defineComponent({
           })
       }
     }
-    const showKeyboard = () => {
-      isShowKeyBoard.value = !isShowKeyBoard.value
-    }
     return {
       submitForm,
       refForm,
@@ -203,7 +207,8 @@ export default defineComponent({
       showKeyboard,
       isShowKeyBoard,
       datas,
-      listKey
+      listKey,
+      useEmotion
     }
   }
 })
@@ -229,34 +234,43 @@ export default defineComponent({
   float:right;
   cursor: pointer;
 }
-.emotion-group .el-card {
-    width: 620px;
-    height: 370px;
-    position:relative;
-    bottom:810px;
-    left:140px;
+.emotion-group .el-card{
+  width: 620px;
+  height: 370px;
+  position:relative;
+  bottom:810px;
+  left:140px;
+}
+.emotion-item {
+  float: left;
+  border-radius: 3px;
+  margin-left: 3px;
+  margin-right: 3px;
+  justify-content: space-around;
+  height:30%;
+  width:17%;
+}
+.emotion-item p {
+  text-align: center;
 }
 .emotion-item:hover{
   background-color: pink;
 }
 .text {
     font-size: 14px;
-  }
-
-  .item {
-    margin-bottom: 18px;
-  }
-
-  .clearfix:before,
-  .clearfix:after {
-    display: table;
-    content: "";
-  }
-  .clearfix:after {
-    clear: both
-  }
-
-  .comment-list {
-    width: 880px;
-  }
+}
+.item {
+  margin-bottom: 18px;
+}
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  content: "";
+}
+.clearfix:after {
+  clear: both
+}
+.comment-list {
+  width: 880px;
+}
 </style>

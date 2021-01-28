@@ -1,5 +1,5 @@
 <template>
-  <el-container style="height:1000px;">
+  <el-container :style="Img">
     <el-header>
       <Header class="nav-header"/>
     </el-header>
@@ -22,6 +22,14 @@ export default defineComponent({
     // HelloWorld
     Header,
     Aside
+  },
+  setup () {
+    const Img = {
+      backgroundImage: 'url(' + require('./assets/background.jpg') + ')'
+    }
+    return {
+      Img
+    }
   }
 })
 </script>
@@ -31,7 +39,6 @@ export default defineComponent({
 body{
   margin: 0;
   padding: 0;
-  background-color: blanchedalmond;
 }
 header{
   padding:0;
@@ -65,7 +72,7 @@ header{
 .bounce-leave-active {
   animation: bounce-in .5s reverse;
 }
-@keyframes bounce-in {
+/** @keyframes bounce-in {
   0% {
     transform: scale(0);
   }
@@ -75,5 +82,5 @@ header{
   100% {
     transform: scale(1);
   }
-}
+} */
 </style>
