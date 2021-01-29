@@ -1,7 +1,7 @@
 <template>
   <el-container :style="Img">
     <el-header>
-      <Header class="nav-header"/>
+      <Header class="nav-header"><Search></Search></Header>
     </el-header>
   <el-container class="content">
     <Aside/>
@@ -16,12 +16,14 @@
 import { defineComponent } from 'vue'
 import Header from '../src/components/Header.vue'
 import Aside from '../src/components/Slider.vue'
+import Search from '../src/components/Search.vue'
 export default defineComponent({
   name: 'App',
   components: {
     // HelloWorld
     Header,
-    Aside
+    Aside,
+    Search
   },
   setup () {
     const Img = {
