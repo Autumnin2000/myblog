@@ -3,6 +3,7 @@ import details from '../views/Details.vue'
 import Archives from '../views/Archives.vue'
 import Life from '../components/Life.vue'
 import SearchList from '../views/SearchResults.vue'
+import SearchHeader from '../components/SearchHeader.vue'
 const history = createWebHistory()
 export const router = createRouter({
   history,
@@ -10,6 +11,13 @@ export const router = createRouter({
     { path: '/details/:id', component: details },
     { path: '/', component: Archives },
     { path: '/life', component: Life },
-    { path: '/SearchList/:keywords', component: SearchList }
+    {
+      path: '/SearchList/:keywords',
+      components: {
+        Header: SearchHeader,
+        default: SearchList
+      },
+      name: 'SearchList'
+    }
   ]
 })

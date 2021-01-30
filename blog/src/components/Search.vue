@@ -1,21 +1,29 @@
 <template>
   <div class="search-box">
     <input type="text" class="search-input" v-model="val">
-    <i class="el-icon-search search-btn"></i>
+    <i class="el-icon-search search-btn" @click="goResult(val)"></i>
   </div>
 </template>
 
 <script>
-import { defineComponent, ref, watch } from 'vue'
+import { defineComponent, onMounted, ref } from 'vue'
+import { useRouter } from 'vue-router'
 // import getSearchList from '../api/getSearchList'
 export default defineComponent({
   setup () {
     const val = ref('')
-    watch(() => val.value, (val) => {
+    const Router = useRouter()
+    const goResult = (keywords) => {
+      Router.push({ name: 'SearchList', params: { keywords: keywords } })
+    }
+    /** watch(() => val.value, (val) => {
       console.log(val)
+    }) */
+    onMounted(() => {
+      console.log('1')
     })
     return {
-      val
+      val, goResult
     }
   }
 })
