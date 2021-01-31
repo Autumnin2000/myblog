@@ -3,6 +3,7 @@
     <el-header>
       <Header class="nav-header"><Search></Search></Header>
     </el-header>
+  <SearchTable></SearchTable>
   <router-view name="Header" class="view-one" />
   <el-container class="content">
     <Aside/>
@@ -18,6 +19,7 @@ import { defineComponent } from 'vue'
 import Header from '../src/components/Header.vue'
 import Aside from '../src/components/Slider.vue'
 import Search from '../src/components/Search.vue'
+import SearchTable from './components/SearchTable.vue'
 // import SearchHeader from './components/SearchHeader.vue'
 export default defineComponent({
   name: 'App',
@@ -25,7 +27,8 @@ export default defineComponent({
     // HelloWorld
     Header,
     Aside,
-    Search
+    Search,
+    SearchTable
     // SearchHeader
   },
   setup () {

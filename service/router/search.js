@@ -29,6 +29,7 @@ Router.get('/search/:keywords',(req,res)=>{
           data:results
         })
       }
+      connection.release();
     })
   })
 })

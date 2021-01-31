@@ -1,0 +1,56 @@
+<template>
+  <div class="search-table">
+    <el-card class="box-card" v-if="listData.length!=0">
+      <div v-for="item in listData" :key="item.id" @click="goDetails(item.id)" class="list-item">
+        <p>{{item.title}}</p>
+      </div>
+    </el-card>
+  </div>
+</template>
+<script>
+import { defineComponent, onMounted, ref, watch } from 'vue'
+import { useStore } from 'vuex'
+import { useRouter, useRoute } from 'vue-router'
+export default defineComponent({
+  setup () {
+    const store = useStore()
+    const listData = ref([])
+    const Router = useRouter()
+    const Route = useRoute()
+    onMounted(() => {
+      listData.value = []
+    })
+    const goDetails = (id) => {
+      Router.push({ name: 'Details', params: { id: id } })
+    }
+    watch(() => store.state.searchData, (val) => {
+      listData.value = val
+    })
+    watch(() => Route.path, () => {
+      listData.value = []
+    })
+    return {
+      store, listData, goDetails
+    }
+  }
+})
+</script>
+
+<style>
+.search-table .el-card {
+  display: inline-block;
+  position: relative;
+  width:250px;
+  height: 175px;
+  bottom: 120px;
+  left:200px;
+}
+.list-item {
+  width:100%;
+  margin-bottom: 5px;
+}
+.list-item:hover {
+  background-color: pink;
+  cursor: pointer;
+}
+</style>

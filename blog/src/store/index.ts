@@ -4,7 +4,8 @@ export default createStore({
   state: {
     commentList: [],
     articleId: 0,
-    isCommented: 0
+    isCommented: 0,
+    searchData: []
   },
   mutations: {
     changeCommentList (state, value) {
@@ -16,6 +17,9 @@ export default createStore({
     setCommentedState (state) {
       state.isCommented++
       console.log(state)
+    },
+    setSearchData (state, value) {
+      state.searchData = value
     }
   },
   getters: {

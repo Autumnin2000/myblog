@@ -1,6 +1,6 @@
 <template>
  <div class="search-list">
-  <el-card class="box-card" v-for="item in seachList.data" :key="item.id">
+  <el-card class="box-card" v-for="item in seachList.data.slice((currentPage -1 )*size,currentPage*size)" :key="item.id">
      <el-header class="ac-header">
         <a class="title" @click="goDetails(item.id)" href="#">
           {{item.title}}
@@ -28,12 +28,21 @@
         </div>
       </el-header>
       <div class="post-content">{{item.content}}</div>
-</el-card>
+  </el-card>
+  <div class="block" style="margin-left:30%;">
+    <el-pagination
+      background
+      layout="prev, pager, next"
+      :page-size="size"
+      @current-change="handleCurrentChange"
+      :total="seachList.data.length">
+    </el-pagination>
+  </div>
  </div>
 </template>
 
 <script>
-import { defineComponent, onMounted, reactive } from 'vue'
+import { defineComponent, onMounted, reactive, ref } from 'vue'
 import getSearchList from '../api/getSearchList'
 import { useRoute, useRouter } from 'vue-router'
 export default defineComponent({
@@ -43,9 +52,14 @@ export default defineComponent({
     const seachList = reactive({
       data: []
     })
+    const size = ref(6)
+    const currentPage = ref(1)
     const Router = useRouter()
     const goDetails = (id) => {
       Router.push({ name: 'Details', params: { id: id } })
+    }
+    const handleCurrentChange = (val) => {
+      currentPage.value = val
     }
     onMounted(() => {
       getSearchList(keywords)
@@ -59,7 +73,10 @@ export default defineComponent({
     })
     return {
       seachList,
-      goDetails
+      goDetails,
+      handleCurrentChange,
+      size,
+      currentPage
     }
   }
 })

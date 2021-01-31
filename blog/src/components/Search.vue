@@ -1,24 +1,43 @@
 <template>
-  <div class="search-box" @keydown.enter="goResult(val)">
-    <input type="text" class="search-input" v-model="val">
-    <i class="el-icon-search search-btn" @click="goResult(val)"></i>
+  <div>
+    <div class="search-box" @keydown.enter="goResult(val)">
+      <input type="text" class="search-input" v-model="val">
+      <i class="el-icon-search search-btn" @click="goResult(val)"></i>
+    </div>
   </div>
 </template>
 
 <script>
-import { defineComponent, ref } from 'vue'
-import { useRouter } from 'vue-router'
-// import getSearchList from '../api/getSearchList'
+import { defineComponent, onMounted, ref, watch } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
+import { useStore } from 'vuex'
+import getSearchList from '../api/getSearchList'
 export default defineComponent({
   setup () {
     const val = ref('')
+    const store = useStore()
+    const Route = useRoute()
     const Router = useRouter()
     const goResult = (keywords) => {
       Router.push({ name: 'SearchList', params: { keywords: keywords } })
     }
-    /** watch(() => val.value, (val) => {
+    watch(() => Route.path, () => {
+      val.value = ''
+    })
+    onMounted(() => {
+      val.value = ''
+    })
+    watch(() => val.value, (val) => {
       console.log(val)
-    }) */
+      if (val === '') return
+      getSearchList(val)
+        .then(res => {
+          store.commit('setSearchData', res.data.data)
+        })
+        .catch(e => {
+          console.log(e)
+        })
+    })
     return {
       val, goResult
     }
