@@ -52,6 +52,7 @@ header{
 }
 .el-header{
   padding: 0 0 0 0;
+  margin-bottom: 100px;
 }
 .nav-header{
   padding: 0 0 0 0 ;
@@ -63,7 +64,7 @@ header{
 .content{
   display: flex;
   justify-content: space-around;
-  margin-top: 150px;
+  margin-top: 0px;
 }
 .fade-enter-active, .fade-leave-active {
   opacity: 0;

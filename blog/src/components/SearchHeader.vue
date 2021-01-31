@@ -45,10 +45,23 @@ export default defineComponent({
   height: 150px;
   width:1150px;
 }
+.search-header {
+  display: flex;
+  justify-content: center;
+  margin-top: 150px;
+}
 .header-part {
   display: flex;
   flex-direction: row;
   align-content: center;
+}
+.title {
+  font-size: 26px;
+  letter-spacing: .5px;
+}
+.title:hover {
+  color:pink;
+  transition: color 1s ease;
 }
 .key-words {
   font-size:1.75rem;

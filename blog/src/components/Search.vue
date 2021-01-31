@@ -1,12 +1,12 @@
 <template>
-  <div class="search-box">
+  <div class="search-box" @keydown.enter="goResult(val)">
     <input type="text" class="search-input" v-model="val">
     <i class="el-icon-search search-btn" @click="goResult(val)"></i>
   </div>
 </template>
 
 <script>
-import { defineComponent, onMounted, ref } from 'vue'
+import { defineComponent, ref } from 'vue'
 import { useRouter } from 'vue-router'
 // import getSearchList from '../api/getSearchList'
 export default defineComponent({
@@ -19,9 +19,6 @@ export default defineComponent({
     /** watch(() => val.value, (val) => {
       console.log(val)
     }) */
-    onMounted(() => {
-      console.log('1')
-    })
     return {
       val, goResult
     }

@@ -1,5 +1,4 @@
 <template>
-
   <div style="margin-left:-20px;">
       <el-menu :default-active="$route.path" class="el-menu-demo" mode="horizontal" @select="handleSelect" router>
         <el-menu-item index="/">博客首页</el-menu-item>
@@ -14,11 +13,8 @@ import { defineComponent } from 'vue'
 import Search from './Search.vue'
 export default defineComponent({
   setup () {
-    const handleSelect = (key, keyPath) => {
-      console.log(key, keyPath)
-    }
     return {
-      handleSelect
+      // handleSelect
     }
   },
   component: {
