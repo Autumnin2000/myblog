@@ -1,6 +1,8 @@
 <template>
-  <div>
-    No Data Here
+  <div class="no-data">
+    <el-card>
+      这里还有没有数据哦~
+    </el-card>
   </div>
 </template>
 
@@ -11,4 +13,8 @@ export default {
 </script>
 
 <style>
+.no-data {
+  width:960px;
+  height: 800px;
+}
 </style>

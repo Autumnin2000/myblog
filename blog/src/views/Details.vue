@@ -9,22 +9,22 @@
         <div class="header-meta">
           <div class="time item">
             <img src="../assets/time.png" alt="">
-            <div>2021-1-19</div>
+            <div>{{details.data[0].date}}</div>
           </div>
           <div class="header-meta-divide">|</div>
           <div class="category item">
             <img src="../assets/category.png" alt="">
-            <div>算法</div>
+            <div>{{details.data[0].category}}</div>
           </div>
           <div class="header-meta-divide">|</div>
           <div class="words item">
             <img src="../assets/words.png" alt="">
-            <div>2123字</div>
+            <div>{{details.data[0].words}}</div>
           </div>
           <div class="header-meta-divide">|</div>
           <div class="read-time item">
             <img src="../assets/readtime.png" alt="">
-            <div>8分钟</div>
+            <div>{{Math.floor(details.data[0].words / 220)}}分钟</div>
           </div>
         </div>
       </el-header>
@@ -151,6 +151,9 @@ element.style{
   line-height: 24px;
   margin-top: 10px;
 }
+.nothing {
+  margin-top: 50px;
+}
 .header-meta img{
   width:20px;
   height: 20px;
@@ -159,6 +162,9 @@ element.style{
 .title {
   font-size: 26px;
   letter-spacing: .5px;
+}
+.comment-list {
+  margin-top: 50px;
 }
 .title:hover {
   color:pink;

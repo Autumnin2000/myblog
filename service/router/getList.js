@@ -12,7 +12,6 @@ const pool = mysql.createPool({
 
 Router.get("/getList",(req,res) =>{
   let sql = "select * from details";
-  console.log(req.query);
   pool.getConnection((err,connection) => {
     if(err)throw err;
     connection.query(sql,(error,results,fileds)=>{

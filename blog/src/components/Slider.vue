@@ -1,10 +1,11 @@
 <template>
-    <el-aside style="width:240px;background-color:#fff; border-radius:9px;margin-left:110px;height:340px;">
+    <el-aside style="width:240px;background-color:#fff; border-radius:9px;margin-left:110px;height:342px;">
         <el-card :body-style="{ padding: '0px',width:'240px' }">
           <div class="nav">
-            <el-link type="primary">个人介绍</el-link>
-            <el-link type="primary">功能</el-link>
+            <a type="primary" href="#" @click="changeState">个人介绍</a>
+            <a type="primary" @click="changeState" href="#">功能</a>
           </div>
+          <div v-if="introudce === true">
           <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" class="image">
           <div style="padding: 14px;">
             <h6 class="name">solitce23</h6>
@@ -46,15 +47,50 @@
               </a>
             </div>
           </div>
+        </div>
+        <div v-else class="progess">
+          <span>{{year}}</span>
+          <el-progress :text-inside="true" :stroke-width="24" :percentage="percentage" status="success"></el-progress>
+        </div>
         </el-card>
          <el-backtop></el-backtop>
     </el-aside>
 </template>
 
 <script>
-export default {
-
-}
+import { defineComponent, onMounted, ref } from 'vue'
+export default defineComponent({
+  setup () {
+    const introudce = ref(true)
+    const percentage = ref(100)
+    const year = new Date().getFullYear()
+    const changeState = () => {
+      introudce.value = !introudce.value
+    }
+    const computedPercent = () => {
+      const month = new Date().getMonth() + 1
+      const day = new Date().getDay()
+      let isLeap = false
+      let during = 0
+      if (year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0)) {
+        isLeap = true
+      }
+      const months = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+      for (let i = 0; i < month; i++) {
+        during += months[i]
+      }
+      during += day
+      if (isLeap && month > 2) during++
+      percentage.value = ((during / (isLeap ? 366 : 365)) * 100).toFixed(3)
+    }
+    onMounted(() => {
+      computedPercent()
+    })
+    return {
+      introudce, changeState, computedPercent, percentage, year
+    }
+  }
+})
 </script>
 
 <style>
@@ -72,6 +108,9 @@ export default {
     margin-bottom: 10px;
     margin-top: 20px;
   }
+  .nav a:hover{
+    border-bottom: 1px solid skyblue;
+  }
   .name{
    text-align: center;
    font-size: 18px;
@@ -82,6 +121,18 @@ export default {
   .author-links .link-item:hover{
     background: grey;
     opacity: 0.5;
+  }
+  .progess span {
+    font-size: .625rem;
+    font-weight: 600;
+    display: inline-block;
+    padding: .25rem 1rem;
+    text-transform: uppercase;
+    color: #5e72e4;
+    border-radius: 30px;
+    background: rgba(94,114,228,.1);
+    margin-bottom: 10px;
+    margin-left: 5px;
   }
   .author-links{
     display: flex;

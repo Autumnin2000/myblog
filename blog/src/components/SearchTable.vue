@@ -1,7 +1,7 @@
 <template>
   <div class="search-table">
     <el-card class="box-card" v-if="listData.length!=0">
-      <div v-for="item in listData" :key="item.id" @click="goDetails(item.id)" class="list-item">
+      <div v-for="item in listData" :key="item.id" @click="goDetails(item.id)" class="serach-list-item">
         <p>{{item.title}}</p>
       </div>
     </el-card>
@@ -45,11 +45,11 @@ export default defineComponent({
   bottom: 120px;
   left:200px;
 }
-.list-item {
+.serach-list-item {
   width:100%;
   margin-bottom: 5px;
 }
-.list-item:hover {
+.serach-list-item:hover {
   background-color: pink;
   cursor: pointer;
 }

@@ -11,7 +11,6 @@ const pool = mysql.createPool({
 })
 
 Router.get('/details/:id',(req,res)=>{
-  console.log(req.params.id);
   let id = req.params.id;
   let sql = `select * from details where details.id =${id} `;
   pool.getConnection((err,connection) => {

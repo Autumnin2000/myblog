@@ -11,7 +11,6 @@ const pool = mysql.createPool({
 })
 
 Router.get('/comments/:id',(req,res)=>{
-  console.log(req.params.id);
   let id = req.params.id;
   let sql = `select * from comments where comments.articleId =${id} `;
   pool.getConnection((err,connection) => {
