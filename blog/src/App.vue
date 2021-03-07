@@ -6,7 +6,7 @@
   <SearchTable></SearchTable>
   <router-view name="Header" class="view-one" />
   <el-container class="content">
-    <Aside/>
+    <Aside class="aside"/>
     <transition name="bounce">
       <router-view></router-view>
     </transition>
@@ -52,6 +52,9 @@ body{
 }
 header{
   padding:0;
+}
+.aside {
+  height:342px;
 }
 .el-header{
   padding: 0 0 0 0;

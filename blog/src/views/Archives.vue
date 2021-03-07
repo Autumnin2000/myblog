@@ -1,6 +1,5 @@
 <template>
-<el-main style="margin-left:25px;">
-    <div class="block">
+<el-main>
     <el-timeline>
       <el-timeline-item  placement="top" v-for="(item) in items.item.slice((currentPage -1 ) *size,currentPage*size)" :key="item.id" timestamp="2019-08-7">
         <el-card>
@@ -9,7 +8,6 @@
         </el-card>
       </el-timeline-item>
     </el-timeline>
-  </div>
   <div class="block" style="margin-left:30%;">
     <el-pagination
       background
@@ -62,6 +60,7 @@ a{
 }
 .block{
   width:880px;
+  margin-right:200px;
 }
 .el-timeline-item{
   text-align: center;

@@ -9,14 +9,15 @@
 
 <script>
 import { defineComponent, onMounted, ref, watch } from 'vue'
+import debounce from '../utils/debounce'
 import { useRouter, useRoute } from 'vue-router'
 import { useStore } from 'vuex'
 import getSearchList from '../api/getSearchList'
 export default defineComponent({
   setup () {
     const val = ref('')
-    const store = useStore()
     const Route = useRoute()
+    const store = useStore()
     const Router = useRouter()
     const goResult = (keywords) => {
       Router.push({ name: 'SearchList', params: { keywords: keywords } })
@@ -28,15 +29,7 @@ export default defineComponent({
       val.value = ''
     })
     watch(() => val.value, (val) => {
-      console.log(val)
-      if (val === '') return
-      getSearchList(val)
-        .then(res => {
-          store.commit('setSearchData', res.data.data)
-        })
-        .catch(e => {
-          console.log(e)
-        })
+      debounce(getSearchList, val, 1000)()
     })
     return {
       val, goResult

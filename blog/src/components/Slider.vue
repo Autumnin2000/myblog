@@ -1,5 +1,5 @@
 <template>
-    <el-aside style="width:240px;background-color:#fff; border-radius:9px;margin-left:110px;height:342px;">
+    <el-aside style="width:240px;background-color:#fff; border-radius:9px;">
         <el-card :body-style="{ padding: '0px',width:'240px' }">
           <div class="nav">
             <a type="primary" href="#" @click="changeState">个人介绍</a>
