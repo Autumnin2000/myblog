@@ -65,4 +65,7 @@ a{
 .el-timeline-item{
   text-align: center;
 }
+.el-main {
+  overflow: hidden;
+}
 </style>

@@ -7,7 +7,7 @@ const pool = mysql.createPool({
   host:'localhost',
   user:'root',
   password:'root',
-  database:'blog'
+  database:'db1'
 })
 
 Router.get("/getList",(req,res) =>{
@@ -16,7 +16,10 @@ Router.get("/getList",(req,res) =>{
     if(err)throw err;
     connection.query(sql,(error,results,fileds)=>{
       if(error)throw error;
-      res.send(results);
+      let r = results.filter(item =>{
+        return item.isActive == 1;
+      })
+      res.send(r);
       connection.release();
     })
   })

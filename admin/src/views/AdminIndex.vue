@@ -1,25 +1,124 @@
 <template>
-  <add-article></add-article>
+  <div>
+    <div class="index-header">
+      <div class="header-left">
+        <img style="width:50px;height:50px;" src="../assets/logo.png" alt="">
+        <div class="header-left-title">后台管理系统</div>
+      </div>
+      <div class="header-right">
+        <a-switch
+        :checked="theme === 'dark'"
+        checked-children="Dark"
+        un-checked-children="Light"
+        @change="changeTheme"
+      />
+      <div class="user-info">| 管理员</div>
+      </div>
+    </div>
+    <div class="main-container">
+      <div>
+        <a-menu
+          style="width: 256px;height:678px;"
+          v-model:openKeys="openKeys"
+          v-model:selectedKeys="selectedKeys"
+          mode="inline"
+          :theme="theme"
+        >
+          <a-sub-menu key="sub1">
+            <template #icon>
+              <AppstoreOutlined />
+            </template>
+            <template #title>内容管理</template>
+            <a-menu-item key="3" @click="clickTitle($event,3)">博客列表</a-menu-item>
+            <a-menu-item key="4" @click="clickTitle($event,4)">添加博客</a-menu-item>
+          </a-sub-menu>
+          <a-sub-menu key="sub2">
+            <template #icon>
+              <SettingOutlined />
+            </template>
+            <template #title>评论管理</template>
+            <a-menu-item key="7">评论管理1</a-menu-item>
+            <a-menu-item key="8">评论管理2</a-menu-item>
+          </a-sub-menu>
+        </a-menu>
+      </div>
+      <div class="main-content">
+        <router-view></router-view>
+      </div>
+    </div>
+  </div>
 </template>
-
 <script>
-// import Slider from '../components/Slider.vue'
-import AddArticle from '../views/AddArticle.vue'
-import { defineComponent, ref } from 'vue'
-export default defineComponent( {
-  setup(){
-    let text = ref("")
-    
-    return {
-      text
+import { defineComponent, reactive, toRefs } from "vue";
+import { AppstoreOutlined, SettingOutlined } from "@ant-design/icons-vue";
+import { useRouter } from "vue-router";
+export default defineComponent({
+  setup() {
+    const Router = useRouter()
+    const state = reactive({
+      theme: "dark",
+      selectedKeys: ["1","2","3"],
+      openKeys: ["sub1"],
+    });
+    const clickTitle = (item,key) => {
+      console.log(item)
+      if(key == 3){
+        Router.push({
+          path:'/articles/articleList'
+        })
+      }else if(key ==4){
+        Router.push({
+          path:'/articles/AddArticle'
+        })
+      }
     }
+    const changeTheme = (checked) => {
+      state.theme = checked ? "dark" : "light";
+    };
+
+    return { ...toRefs(state), changeTheme,clickTitle};
   },
+
   components: {
-    AddArticle
-  }
-})
+    AppstoreOutlined,
+    SettingOutlined,
+  },
+});
 </script>
-
-<style>
-
+<style scoped>
+.user-info {
+  color: white;
+}
+.index-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #001529;
+  width: 100%;
+  height: 75px;
+}
+.header-left{
+  margin-left: 15px;
+}
+.header-right{
+  display: flex;
+  margin-right: 15px;
+}
+.header-left-title{
+  color:white;
+  float: right;
+  margin-top: 20px;
+}
+.main-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+.main-content {
+  width: 1200px;
+  background-color: antiquewhite;
+  height: 628px;
+  margin-top: 15px;
+  margin-left: 15px;
+}
 </style>

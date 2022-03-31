@@ -7,7 +7,7 @@ const pool = mysql.createPool({
   host: 'localhost',
   user: 'root',
   password: 'root',
-  database: 'blog'
+  database: 'db1'
 })
 
 Router.post('/addComment/:id/:parentId?', (req, res) => {
