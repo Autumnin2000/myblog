@@ -3,10 +3,10 @@
     <h2 class="login-title">博客后台管理系统</h2>
     <a-form :layout="formState.layout" :model="formState" v-bind="formItemLayout" class="login-form">
     <a-form-item label="账号">
-      <a-input v-model:value="formState.fieldA" placeholder="请输入" />
+      <a-input v-model:value="formState.fieldA" placeholder="请输入账号" />
     </a-form-item>
     <a-form-item label="密码">
-      <a-input v-model:value="formState.fieldB" placeholder="请输入" />
+      <a-input v-model:value="formState.fieldB" placeholder="请输入密码" />
     </a-form-item>
     <a-form-item :wrapper-col="buttonItemLayout.wrapperCol">
       <a-button type="primary" @click="login">登录</a-button>
@@ -17,6 +17,7 @@
 <script>
 import { computed, defineComponent, reactive } from 'vue';
 import { useRouter } from 'vue-router'
+import { message } from "ant-design-vue";
 import userLogin from '../api/login'
 export default defineComponent({
   setup() {
@@ -52,15 +53,24 @@ export default defineComponent({
     });
     const Router = useRouter();
     const login = () => {
-      userLogin('root','root')
+      console.log(formState)
+      let {fieldA,fieldB} = formState;
+      userLogin(fieldA,fieldB)
       .then((response) =>{
         console.log(response)
         if(response.data.code == 0){
-          Router.push({path:'/index'})
+          message.success('登录成功')
+          localStorage.setItem('user_token',response.data.token)
+          setTimeout(() => {
+            Router.push({path:'/index'})
+          }, 1000);
+        }else {
+          message.error(response.data.message)
+          return;
         }
       })
       .catch((err) =>{
-        console.log(err);
+        message.error(err)
       })
     }
     return {
@@ -75,7 +85,6 @@ export default defineComponent({
 <style>
 .login-form {
   width:565px;
-  height:372px;
   margin:0 auto;
   padding: 40px 110px;
   background: url("../assets/loginbg.png");
@@ -92,5 +101,8 @@ export default defineComponent({
   width:100%;
   height: 100%;
   background: url("../assets/bg.png");
+}
+.ant-form-item-label >label {
+  color: #d9d9d9;
 }
 </style>

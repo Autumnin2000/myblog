@@ -2,23 +2,33 @@
   <div>
     <div class="index-header">
       <div class="header-left">
-        <img style="width:50px;height:50px;" src="../assets/logo.png" alt="">
+        <img
+          style="width: 50px; height: 50px"
+          src="../assets/logo.png"
+          alt=""
+        />
         <div class="header-left-title">后台管理系统</div>
       </div>
       <div class="header-right">
         <a-switch
-        :checked="theme === 'dark'"
-        checked-children="Dark"
-        un-checked-children="Light"
-        @change="changeTheme"
-      />
-      <div class="user-info">| 管理员</div>
+          :checked="theme === 'dark'"
+          checked-children="Dark"
+          un-checked-children="Light"
+          @change="changeTheme"
+        />
+        &nbsp;
+        <a-popover title="Action" trigger="hover">
+          <template #content>
+             <a @click="logout">退出登录</a>
+          </template>
+          <a-button> 管理员</a-button>
+        </a-popover>
       </div>
     </div>
     <div class="main-container">
       <div>
         <a-menu
-          style="width: 256px;height:678px;"
+          style="width: 256px; height: 678px"
           v-model:openKeys="openKeys"
           v-model:selectedKeys="selectedKeys"
           mode="inline"
@@ -29,8 +39,12 @@
               <AppstoreOutlined />
             </template>
             <template #title>内容管理</template>
-            <a-menu-item key="3" @click="clickTitle($event,3)">博客列表</a-menu-item>
-            <a-menu-item key="4" @click="clickTitle($event,4)">添加博客</a-menu-item>
+            <a-menu-item key="3" @click="clickTitle($event, 3)"
+              >博客列表</a-menu-item
+            >
+            <a-menu-item key="4" @click="clickTitle($event, 4)"
+              >添加博客</a-menu-item
+            >
           </a-sub-menu>
           <a-sub-menu key="sub2">
             <template #icon>
@@ -49,34 +63,40 @@
   </div>
 </template>
 <script>
-import { defineComponent, reactive, toRefs } from "vue";
+import { defineComponent, reactive, toRefs, ref } from "vue";
 import { AppstoreOutlined, SettingOutlined } from "@ant-design/icons-vue";
 import { useRouter } from "vue-router";
 export default defineComponent({
   setup() {
-    const Router = useRouter()
+    const Router = useRouter();
+    const visible = ref(false);
+
+    const logout = () => {
+      visible.value =false;
+      console.log("退出成功")
+    };
     const state = reactive({
       theme: "dark",
-      selectedKeys: ["1","2","3"],
+      selectedKeys: ["1", "2", "3"],
       openKeys: ["sub1"],
     });
-    const clickTitle = (item,key) => {
-      console.log(item)
-      if(key == 3){
+    const clickTitle = (item, key) => {
+      console.log(item);
+      if (key == 3) {
         Router.push({
-          path:'/articles/articleList'
-        })
-      }else if(key ==4){
+          path: "/articles/articleList",
+        });
+      } else if (key == 4) {
         Router.push({
-          path:'/articles/AddArticle'
-        })
+          path: "/articles/AddArticle",
+        });
       }
-    }
+    };
     const changeTheme = (checked) => {
       state.theme = checked ? "dark" : "light";
     };
 
-    return { ...toRefs(state), changeTheme,clickTitle};
+    return { ...toRefs(state), changeTheme, clickTitle, logout };
   },
 
   components: {
@@ -97,15 +117,17 @@ export default defineComponent({
   width: 100%;
   height: 75px;
 }
-.header-left{
+.header-left {
   margin-left: 15px;
 }
-.header-right{
+.header-right {
   display: flex;
+  align-items: center;
   margin-right: 15px;
+  
 }
-.header-left-title{
-  color:white;
+.header-left-title {
+  color: white;
   float: right;
   margin-top: 20px;
 }

@@ -4,8 +4,10 @@ import AdminIndex from '../views/AdminIndex.vue'
 import AddArticle from '../views/AddArticle.vue'
 import ArtilceList from '../components/articles/articleList'
 import Hello from '../components/HelloWorld.vue'
+import { message } from "ant-design-vue"
+//import { route } from '../../../service/router/user';
 const history = createWebHistory()
-export const router = createRouter({
+const router = createRouter({
   history,
   routes: [
       { path:'/',component: Login},
@@ -30,3 +32,22 @@ export const router = createRouter({
       }
   ]
 })
+router.beforeEach((to,from,next)=>{
+  console.log(to,from);
+  if(localStorage.getItem('user_token')){
+    if(to.path=='/login'){
+      next("/index");
+    }else {
+      next();
+    }
+    return
+  }else {
+    if(to.path == '/login'){
+      next();
+    }else {
+      message.error("请重新登录")
+      next('/login')
+    }
+  }
+})
+export default router;

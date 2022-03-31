@@ -15,9 +15,10 @@ const deleteArticle = require("./router/deleteArticle")
 // 创建主应用
 const app = express();
 const port = 3000;
+const allowHeaders = "Origin, Expires, Content-Type, X-E4M-With, Authorization";
 app.all('*', (req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  res.header("Access-Control-Allow-Headers", allowHeaders);
   res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
   res.header("X-Powered-By",' 3.2.1')
   res.header("Content-Type", "application/json;charset=utf-8");
