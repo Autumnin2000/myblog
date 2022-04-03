@@ -66,6 +66,7 @@
 import { defineComponent, reactive, toRefs, ref } from "vue";
 import { AppstoreOutlined, SettingOutlined } from "@ant-design/icons-vue";
 import { useRouter } from "vue-router";
+import { message } from "ant-design-vue";
 export default defineComponent({
   setup() {
     const Router = useRouter();
@@ -73,7 +74,9 @@ export default defineComponent({
 
     const logout = () => {
       visible.value =false;
-      console.log("退出成功")
+      message.success("退出成功！");
+      localStorage.removeItem("user_token")
+      Router.push("/login");
     };
     const state = reactive({
       theme: "dark",

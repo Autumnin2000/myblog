@@ -9,7 +9,10 @@
       <a-list-item>
         <template #actions>
           <a key="list-loadmore-edit">查看</a>
-          <a key="list-loadmore-more" @click="deleteArticleAction(item)"
+          <a v-if="item.isActive == 1"  @click="deleteArticleAction(item)"
+            >删除</a
+          >
+          <a v-else style="color:gray;"
             >删除</a
           >
         </template>
@@ -17,6 +20,7 @@
           <a-list-item-meta :description="item.desc">
             <template #title>
               <a href="https://www.antdv.com/">{{ item.title }}</a>
+              &nbsp;&nbsp;<a-tag v-if="item.isActive == 1" color="cyan">已发布</a-tag><a-tag v-else color="red">已删除</a-tag>
             </template>
             <template #avatar>
               <a-avatar src="../../assets/bg.png" />

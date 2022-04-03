@@ -16,10 +16,10 @@ Router.get("/getList",(req,res) =>{
     if(err)throw err;
     connection.query(sql,(error,results,fileds)=>{
       if(error)throw error;
-      let r = results.filter(item =>{
-        return item.isActive == 1;
-      })
-      res.send(r);
+      // let r = results.filter(item =>{
+      //   return item.isActive == 1;
+      // })
+      res.send(results);
       connection.release();
     })
   })

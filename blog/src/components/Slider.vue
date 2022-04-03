@@ -13,7 +13,7 @@
               <nav class="site-state">
               <el-col class="site-state-item">
                 <a style="cursor:default;" class="article">
-                  <span id="article-count">53</span>
+                  <span id="article-count">{{artNum}}</span>
                   <span id="article-name">文章</span>
                 </a>
               </el-col>
@@ -58,11 +58,13 @@
 </template>
 
 <script>
-import { defineComponent, onMounted, ref } from 'vue'
+import { defineComponent, nextTick, onMounted, ref } from 'vue'
+import getTimeLine from '../api/getTimeLine'
 export default defineComponent({
   setup () {
     const introudce = ref(true)
     const percentage = ref(100)
+    const artNum = ref(0)
     const year = new Date().getFullYear()
     const changeState = () => {
       introudce.value = !introudce.value
@@ -84,10 +86,20 @@ export default defineComponent({
       percentage.value = ((during / (isLeap ? 366 : 365)) * 100).toFixed(3)
     }
     onMounted(() => {
+      getTimeLine()
+        .then(res => {
+          nextTick(() => {
+            artNum.value = res.data.length
+            console.log(artNum)
+          })
+        })
+        .catch(e => {
+          console.log(e)
+        })
       computedPercent()
     })
     return {
-      introudce, changeState, computedPercent, percentage, year
+      introudce, changeState, computedPercent, percentage, year, artNum
     }
   }
 })

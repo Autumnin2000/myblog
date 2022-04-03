@@ -1,7 +1,7 @@
 <template>
 <el-main>
     <el-timeline>
-      <el-timeline-item  placement="top" v-for="(item) in items.item.slice((currentPage -1 ) *size,currentPage*size)" :key="item.id" timestamp="2019-08-7">
+      <el-timeline-item  placement="top" v-for="(item) in items.item.slice((currentPage -1 ) *size,currentPage*size)" :key="item.id" :timestamp="item.date">
         <el-card>
           <el-link type="primary"><h4><router-link :to="'/details/'+item.id">{{item.title}}</router-link></h4></el-link>
           <p>{{item.desc}}</p>
@@ -38,6 +38,9 @@ export default defineComponent({
       getTimeLine()
         .then((response) => {
           console.log(response)
+          response.data = response.data.filter(every => {
+            return every.isActive === 1
+          })
           items.item = response.data
         })
         .catch((error) => {

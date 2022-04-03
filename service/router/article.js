@@ -13,7 +13,7 @@ const pool = mysql.createPool({
 Router.post('/addArticle',(req,res)=>{
   let {content,date,title,desc} = req.body;
   date = moment(date).format('YYYY-MM-DD HH:mm:ss');
-  let sql = `INSERT INTO details (\`content\`, \`date\`, \`title\`, \`desc\`) VALUES ("${content}", "${date}", "${title}", "${desc}")`;
+  let sql = `INSERT INTO details (\`content\`, \`date\`, \`title\`, \`desc\`, \`isActive\`) VALUES ("${content}", "${date}", "${title}", "${desc}",1)`;
   pool.getConnection((err,connection) => {
     if(err)throw err;
     connection.query(sql,(error,results,fileds)=>{

@@ -19,12 +19,12 @@
           <div class="header-meta-divide">|</div>
           <div class="words item">
             <img src="../assets/words.png" alt="">
-            <div>{{details.data[0].words}}</div>
+            <div>{{details.data[0].content.length}}字</div>
           </div>
           <div class="header-meta-divide">|</div>
           <div class="read-time item">
             <img src="../assets/readtime.png" alt="">
-            <div>{{Math.floor(details.data[0].words / 220)}}分钟</div>
+            <div>{{Math.ceil(details.data[0].content.length / 220)}}分钟</div>
           </div>
         </div>
       </el-header>
@@ -85,7 +85,7 @@ export default defineComponent({
     onMounted(() => {
       getDetails(id)
         .then((response) => {
-          // console.log(response)
+          console.log(response)
           details.data = response.data
           details.data[0].content = marked(response.data[0].content)
           details.data[0].content = details.data[0].content.replace(/<pre/g, "<pre class='hljs'")
