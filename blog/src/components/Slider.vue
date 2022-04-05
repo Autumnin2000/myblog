@@ -1,5 +1,5 @@
 <template>
-    <el-aside style="width:240px;background-color:#fff; border-radius:9px;">
+    <el-aside style="width:240px;background-color:#fff; border-radius:9px;margin-left:100px;">
         <el-card :body-style="{ padding: '0px',width:'240px' }">
           <div class="nav">
             <a type="primary" href="#" @click="changeState">个人介绍</a>
@@ -165,6 +165,9 @@ export default defineComponent({
     flex-direction: column;
     text-align: center;
     margin-top: 10px;
+  }
+  .el-aside {
+    overflow: hidden;
   }
   .tag{
     border-left: 1px solid #eee;

@@ -1,5 +1,5 @@
 <template>
-<el-main>
+<el-main class="main-timeline">
     <el-timeline>
       <el-timeline-item  placement="top" v-for="(item) in items.item.slice((currentPage -1 ) *size,currentPage*size)" :key="item.id" :timestamp="item.date">
         <el-card>
@@ -69,6 +69,10 @@ a{
   text-align: center;
 }
 .el-main {
+  padding-left: 70px;
   overflow: hidden;
+}
+.main-timeline {
+  width: 60%;
 }
 </style>
