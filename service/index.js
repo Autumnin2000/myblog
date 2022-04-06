@@ -12,6 +12,7 @@ const commentsRouter = require('./router/comments');
 const addComment = require("./router/addComment");
 const searchRouter = require("./router/search");
 const deleteArticle = require("./router/deleteArticle")
+const getTags = require("./router/getTags");
 // 创建主应用
 const app = express();
 const port = 3000;
@@ -36,4 +37,5 @@ app.use(commentsRouter);
 app.use(addComment);
 app.use(searchRouter);
 app.use(deleteArticle);
+app.use(getTags);
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))

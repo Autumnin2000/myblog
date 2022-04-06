@@ -11,6 +11,7 @@
       <router-view></router-view>
     </transition>
   </el-container>
+  <div style="display:none;" class="mask"></div>
 </el-container>
 </template>
 
@@ -49,6 +50,14 @@ body{
   margin: 0;
   padding: 0;
   height: 20%;
+}
+.mask{
+    position:fixed;
+    top     : 0;
+    left    : 0;
+    bottom  : 0;
+    right   : 0;
+    background: rgba(0,0,0,0.4);;  /*一般遮罩随便设置一个颜色*/
 }
 header{
   padding:0;
