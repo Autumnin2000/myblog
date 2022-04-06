@@ -27,12 +27,6 @@
                   <span id="article-name">文章</span>
                 </a>
               </el-col>
-              <el-col class="site-state-item">
-                <a href="" class="category">
-                  <span id="category-count">53</span>
-                  <span id="category-name">分类</span>
-                </a>
-              </el-col>
               <el-col class="site-state-item" @click="showModal">
                 <div class="tag" >
                   <span id="tag-count">84</span>
@@ -80,17 +74,18 @@
       <div class="tag-box">
         <a-tag v-for="(value,key) in showTagsMap" :key="key" color="pink">{{key}}&nbsp;{{value}}</a-tag>
       </div>
+      <a-button class="close-btn" type="primary" @click="handleOk">确定</a-button>
     </div>
     <el-backtop></el-backtop>
   </el-aside>
 </template>
 
 <script>
-import { defineComponent, nextTick, onMounted, ref, reactive, defineEmits } from 'vue'
+import { defineComponent, nextTick, onMounted, ref, reactive } from 'vue'
 import getTimeLine from '../api/getTimeLine'
 import getTags from '../api/getTags'
 export default defineComponent({
-  setup () {
+  setup (props, ctx) {
     const introudce = ref(true)
     const percentage = ref(100)
     const showTagsMap = reactive({})
@@ -116,14 +111,12 @@ export default defineComponent({
       percentage.value = ((during / (isLeap ? 366 : 365)) * 100).toFixed(3)
     }
     const visible = ref(false)
-    const emit = defineEmits(['emitCss'])
     const showModal = () => {
-      console.log(1)
-      emit('emitCss')
+      ctx.emit('emitCss', true)
       visible.value = !visible.value
     }
-    const handleOk = (e) => {
-      console.log(e)
+    const handleOk = () => {
+      ctx.emit('emitCss', false)
       visible.value = false
     }
     const computTagsNumber = () => {
@@ -225,6 +218,11 @@ export default defineComponent({
   border-radius: 5px;
   margin: 3px;
   padding: 5px;
+}
+.close-btn {
+  float: right;
+  margin-right: 15px;
+  margin-top: 100px;
 }
 .site-state {
   display: flex;

@@ -339,7 +339,7 @@
     "@types/webpack-sources" "*"
     "source-map" "^0.6.0"
 
-"@typescript-eslint/eslint-plugin@^2.33.0", "@typescript-eslint/eslint-plugin@^2.7.0":
+"@typescript-eslint/eslint-plugin@^2.34.0", "@typescript-eslint/eslint-plugin@^2.7.0":
   "integrity" "sha512-4zY3Z88rEE99+CNvTbXSyovv2z9PNOVffTWD2W8QF5s2prBQtwN2zadqERcrHpcR7O/+KMI3fcTAmUUhK/iQcQ=="
   "resolved" "https://registry.npmjs.org/@typescript-eslint/eslint-plugin/-/eslint-plugin-2.34.0.tgz"
   "version" "2.34.0"
@@ -359,7 +359,7 @@
     "eslint-scope" "^5.0.0"
     "eslint-utils" "^2.0.0"
 
-"@typescript-eslint/parser@^2.0.0", "@typescript-eslint/parser@^2.33.0", "@typescript-eslint/parser@^2.7.0":
+"@typescript-eslint/parser@^2.0.0", "@typescript-eslint/parser@^2.34.0", "@typescript-eslint/parser@^2.7.0":
   "integrity" "sha512-03ilO0ucSD0EPTw2X4PntSIRFtDPWjrVq7C3/Z3VQHRC7+13YB55rcJI3Jt+YgeHbjUdJPcPa7b23rXCBokuyA=="
   "resolved" "https://registry.npmjs.org/@typescript-eslint/parser/-/parser-2.34.0.tgz"
   "version" "2.34.0"
@@ -528,7 +528,7 @@
     "@vue/compiler-core" "3.2.31"
     "@vue/shared" "3.2.31"
 
-"@vue/compiler-sfc@^3.0.0", "@vue/compiler-sfc@^3.0.0-beta.14", "@vue/compiler-sfc@>=3.1.0", "@vue/compiler-sfc@3.2.31":
+"@vue/compiler-sfc@^3.0.0-beta.14", "@vue/compiler-sfc@^3.2.31", "@vue/compiler-sfc@>=3.1.0", "@vue/compiler-sfc@3.2.31":
   "integrity" "sha512-748adc9msSPGzXgibHiO6T7RWgfnDcVQD+VVwYgSsyyY8Ans64tALHZANrKtOzvkwznV/F4H7OAod/jIlp/dkQ=="
   "resolved" "https://registry.npmjs.org/@vue/compiler-sfc/-/compiler-sfc-3.2.31.tgz"
   "version" "3.2.31"
@@ -8109,7 +8109,7 @@
   dependencies:
     "is-plain-object" "3.0.1"
 
-"vue@^3.0.0", "vue@^3.0.2", "vue@^3.0.3", "vue@>=3.0.3", "vue@>=3.1.0", "vue@3.2.31":
+"vue@^3.0.0", "vue@^3.0.2", "vue@^3.0.3", "vue@^3.2.31", "vue@>=3.0.3", "vue@>=3.1.0", "vue@3.2.31":
   "integrity" "sha512-odT3W2tcffTiQCy57nOT93INw1auq5lYLLYtWpPYQQYQOOdHiqFct9Xhna6GJ+pJQaF67yZABraH47oywkJgFw=="
   "resolved" "https://registry.npmjs.org/vue/-/vue-3.2.31.tgz"
   "version" "3.2.31"

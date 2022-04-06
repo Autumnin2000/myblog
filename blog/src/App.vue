@@ -6,17 +6,17 @@
   <SearchTable></SearchTable>
   <router-view name="Header" class="view-one" />
   <el-container class="content">
-    <Aside class="aside"/>
+    <Aside @emitCss="recieveCss" class="aside"/>
     <transition name="bounce">
       <router-view></router-view>
     </transition>
   </el-container>
-  <div style="display:none;" class="mask"></div>
+  <div :style='showBg ? "display:block;":"display:none;"' class="mask"></div>
 </el-container>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 import Header from '../src/components/Header.vue'
 import Aside from '../src/components/Slider.vue'
 import Search from '../src/components/Search.vue'
@@ -37,8 +37,13 @@ export default defineComponent({
       backgroundImage: 'url(' + require('./assets/background.jpg') + ')',
       backgroundRepeat: 'repeat'
     }
+    const showBg = ref(false)
+    const recieveCss = (v: boolean) => {
+      showBg.value = v
+      console.log(showBg.value)
+    }
     return {
-      Img
+      Img, recieveCss, showBg
     }
   }
 })
