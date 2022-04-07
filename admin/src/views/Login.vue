@@ -60,6 +60,7 @@ export default defineComponent({
         console.log(response)
         if(response.data.code == 0){
           message.success('登录成功')
+          localStorage.setItem('user_info',JSON.stringify(response.data[0]))
           localStorage.setItem('user_token',response.data.token)
           setTimeout(() => {
             Router.push({path:'/index'})

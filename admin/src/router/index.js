@@ -3,6 +3,8 @@ import  Login  from "../views/Login.vue";
 import AdminIndex from '../views/AdminIndex.vue'
 import AddArticle from '../views/AddArticle.vue'
 import ArtilceList from '../components/articles/articleList'
+import PersonList from '../components/person/Person.vue'
+import AddPerson from '../components/person/addPerson.vue'
 import Hello from '../components/HelloWorld.vue'
 import { message } from "ant-design-vue"
 //import { route } from '../../../service/router/user';
@@ -28,8 +30,24 @@ const router = createRouter({
         ]
       },
       {
-        path:'/hello',component:Hello
-      }
+        path:'/Person',component:AdminIndex,children:[
+          {
+            path:'list',
+            name:'personList',
+            component:PersonList
+          },
+          {
+            path:'add',
+            name:'addperson',
+            component:AddPerson
+          },
+        ]
+      },
+      {
+        path:'/Hello',
+        name:'Hello',
+        component:Hello
+      },
   ]
 })
 router.beforeEach((to,from,next)=>{

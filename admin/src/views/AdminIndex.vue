@@ -21,7 +21,7 @@
           <template #content>
              <a @click="logout">退出登录</a>
           </template>
-          <a-button> 管理员</a-button>
+          <a-button>{{userInfo.nickname}}</a-button>
         </a-popover>
       </div>
     </div>
@@ -54,6 +54,14 @@
             <a-menu-item key="7">评论管理1</a-menu-item>
             <a-menu-item key="8">评论管理2</a-menu-item>
           </a-sub-menu>
+          <a-sub-menu key="sub3">
+            <template #icon>
+              <SettingOutlined />
+            </template>
+            <template #title>人员管理</template>
+            <a-menu-item key="9" @click="clickTitle($event, 5)">人员列表</a-menu-item>
+            <a-menu-item key="10" @click="clickTitle($event, 6)">添加人员</a-menu-item>
+          </a-sub-menu>
         </a-menu>
       </div>
       <div class="main-content">
@@ -71,11 +79,12 @@ export default defineComponent({
   setup() {
     const Router = useRouter();
     const visible = ref(false);
-
+    const userInfo = JSON.parse(localStorage.getItem('user_info'))
     const logout = () => {
       visible.value =false;
       message.success("退出成功！");
       localStorage.removeItem("user_token")
+      localStorage.removeItem("user_info")
       Router.push("/login");
     };
     const state = reactive({
@@ -84,7 +93,7 @@ export default defineComponent({
       openKeys: ["sub1"],
     });
     const clickTitle = (item, key) => {
-      console.log(item);
+      console.log(item)
       if (key == 3) {
         Router.push({
           path: "/articles/articleList",
@@ -92,6 +101,14 @@ export default defineComponent({
       } else if (key == 4) {
         Router.push({
           path: "/articles/AddArticle",
+        })
+      }else if (key == 5) {
+        Router.push({
+          path: "/Person/list",
+        });
+      }else if (key == 6) {
+        Router.push({
+          path: "/Person/add",
         });
       }
     };
@@ -99,7 +116,7 @@ export default defineComponent({
       state.theme = checked ? "dark" : "light";
     };
 
-    return { ...toRefs(state), changeTheme, clickTitle, logout };
+    return { ...toRefs(state), changeTheme, clickTitle, logout, userInfo };
   },
 
   components: {
