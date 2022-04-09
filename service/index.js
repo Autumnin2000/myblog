@@ -15,6 +15,7 @@ const deleteArticle = require("./router/deleteArticle")
 const getTags = require("./router/getTags");
 const getUserInfo  = require("./router/getUserInfo")
 const deleteUser = require('./router/deleteUser')
+const addPerson = require("./router/addPerson")
 // 创建主应用
 const app = express();
 const port = 3000;
@@ -42,4 +43,5 @@ app.use(deleteArticle);
 app.use(getTags);
 app.use(getUserInfo);
 app.use(deleteUser);
+app.use(addPerson);
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
