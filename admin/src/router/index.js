@@ -6,6 +6,7 @@ import ArtilceList from '../components/articles/articleList'
 import PersonList from '../components/person/Person.vue'
 import AddPerson from '../components/person/addPerson.vue'
 import Hello from '../components/HelloWorld.vue'
+import CommentList from '../components/Comments.vue'
 import { message } from "ant-design-vue"
 //import { route } from '../../../service/router/user';
 const history = createWebHistory()
@@ -40,6 +41,15 @@ const router = createRouter({
             path:'add',
             name:'addperson',
             component:AddPerson
+          },
+        ]
+      },
+      {
+        path:'/Comment',component:AdminIndex,children:[
+          {
+            path:'list',
+            name:'commentList',
+            component:CommentList
           },
         ]
       },

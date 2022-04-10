@@ -51,8 +51,7 @@
               <SettingOutlined />
             </template>
             <template #title>评论管理</template>
-            <a-menu-item key="7">评论管理1</a-menu-item>
-            <a-menu-item key="8">评论管理2</a-menu-item>
+            <a-menu-item key="7" @click="clickTitle($event, 7)">评论列表</a-menu-item>
           </a-sub-menu>
           <a-sub-menu key="sub3">
             <template #icon>
@@ -110,6 +109,10 @@ export default defineComponent({
         Router.push({
           path: "/Person/add",
         });
+      }else if( key == 7) {
+        Router.push({
+          path:'/Comment/list'
+        })
       }
     };
     const changeTheme = (checked) => {
